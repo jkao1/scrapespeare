@@ -9,6 +9,9 @@ end = int(sys.argv[2])
 
 output = """
 <style>
+div {
+  font-size: 20px;
+}
 tr, td, table {
   border: 1px solid #000;
   padding: 5px
