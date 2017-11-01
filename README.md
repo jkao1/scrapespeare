@@ -1,2 +1,3 @@
 # scrapespeare
-simple scraper to create a more readable translation table for No Fear Shakespeare.
+
+A web scraper to create a readable translation table for Shakespeare plays. Written in Python.
