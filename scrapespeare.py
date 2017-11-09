@@ -1,5 +1,5 @@
 from bs4 import BeautifulSoup
-import urllib2
+import urllib2, webbrowser
 import sys
 
 url = "http://nfs.sparknotes.com/henryv/"
@@ -30,4 +30,4 @@ for i in range(start/2, (end+2)/2):
 file = open(filename, "w")
 file.write(output)
 file.close()
-print("output written to %s" % (filename))
+webbrowser.open('file:///Users/jasonkao/scrapespeare/nofear.html')
