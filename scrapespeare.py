@@ -2,7 +2,7 @@ from bs4 import BeautifulSoup
 import urllib2, webbrowser
 import sys
 
-url = "http://nfs.sparknotes.com/henryv/"
+url = "http://nfs.sparknotes.com/twelfthnight/"
 filename = "nofear.html"
 start = int(sys.argv[1])
 end = int(sys.argv[2])
