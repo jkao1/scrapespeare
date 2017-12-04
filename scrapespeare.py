@@ -8,6 +8,9 @@ start = int(sys.argv[1])
 end = int(sys.argv[2])
 
 output = """
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
 <style>
 div {
   font-size: 20px;
