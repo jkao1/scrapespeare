@@ -33,4 +33,4 @@ for i in range(start/2, (end+2)/2):
 file = open(filename, "w")
 file.write(output)
 file.close()
-webbrowser.open('file:///Users/jasonkao/cs_projects/scrapespeare/nofear.html')
+webbrowser.open('file:///Users/jasonkao/cs_projects/scrapespeare/' + filename)
