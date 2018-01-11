@@ -2,12 +2,16 @@ from bs4 import BeautifulSoup
 import urllib2, webbrowser
 import sys
 
-url = "http://nfs.sparknotes.com/lear/"
-start = int(sys.argv[1])
-end = int(sys.argv[2])
-filename = sys.argv[3]
+book_to_end = {
+    'henryv': 4,
+    'muchado': 238,
+    'twelfthnight': 242,
+    'lear': 310
+}
 
-output = """
+def scrape_book(book_slug):
+    url = "http://nfs.sparknotes.com/%s/" % book_slug
+    output = """
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
@@ -21,16 +25,20 @@ tr, td, table {
 }
 td.noFear-left { width:50%; }
 </style>
-"""
+    """
+    for i in range(1, (book_to_end[book_slug]+2)/2):
+        sceneUrl = url + "page_" + str(i*2) + ".html"
+        print("analyzing the contents of %s" % (sceneUrl))
+        content = urllib2.urlopen(sceneUrl).read()
+        soup = BeautifulSoup(content, "html.parser")
+        output += str(soup.find(id="noFear-comparison").table) + "\n"
 
-for i in range(start/2, (end+2)/2):
-    sceneUrl = url + "page_" + str(i*2) + ".html"
-    print("analyzing the contents of %s" % (sceneUrl))
-    content = urllib2.urlopen(sceneUrl).read()
-    soup = BeautifulSoup(content, "html.parser")
-    output += str(soup.find(id="noFear-comparison").table) + "\n"
+    file = open(book_slug + '.html', "w")
+    file.write(output)
+    file.close()
+    webbrowser.open('file:///Users/jasonkao/cs_projects/scrapespeare/%s.html' % book_slug)
 
-file = open(filename, "w")
-file.write(output)
-file.close()
-webbrowser.open('file:///Users/jasonkao/cs_projects/scrapespeare/' + filename)
+if __name__ == '__main__':
+    for book_slug in book_to_end:
+        scrape_book(book_slug)
+
