@@ -28,7 +28,8 @@ td.noFear-left { width:50%; }
     """
     for i in range(1, (book_to_end[book_slug]+2)/2):
         sceneUrl = url + "page_" + str(i*2) + ".html"
-        print("analyzing the contents of %s" % (sceneUrl))
+        if i % 10 == 0:
+            print("analyzing the contents of %s" % (sceneUrl))
         content = urllib2.urlopen(sceneUrl).read()
         soup = BeautifulSoup(content, "html.parser")
         output += str(soup.find(id="noFear-comparison").table) + "\n"
@@ -39,6 +40,5 @@ td.noFear-left { width:50%; }
     webbrowser.open('file:///Users/jasonkao/cs_projects/scrapespeare/%s.html' % book_slug)
 
 if __name__ == '__main__':
-    for book_slug in book_to_end:
-        scrape_book(book_slug)
+    scrape_book('lear')
 
