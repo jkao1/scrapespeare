@@ -3,9 +3,9 @@ import urllib2, webbrowser
 import sys
 
 url = "http://nfs.sparknotes.com/lear/"
-filename = "nofear.html"
 start = int(sys.argv[1])
 end = int(sys.argv[2])
+filename = sys.argv[3]
 
 output = """
 <head>
