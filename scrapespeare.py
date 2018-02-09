@@ -7,7 +7,9 @@ filename = "nofear.html"
 start = int(sys.argv[1])
 end = int(sys.argv[2])
 
-output = """
+def scrape_book(book_slug):
+    url = "http://nfs.sparknotes.com/%s/" % book_slug
+    output = """
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
@@ -21,7 +23,14 @@ tr, td, table {
 }
 td.noFear-left { width:50%; }
 </style>
-"""
+    """
+    for i in range(1, (book_to_end[book_slug]+2)/2):
+        sceneUrl = url + "page_" + str(i*2) + ".html"
+        if i % 10 == 0:
+            print("analyzing the contents of %s" % (sceneUrl))
+        content = urllib2.urlopen(sceneUrl).read()
+        soup = BeautifulSoup(content, "html.parser")
+        output += str(soup.find(id="noFear-comparison").table) + "\n"
 
 for i in range(start/2, end/2):
     sceneUrl = url + "page_" + str(i*2) + ".html"
@@ -30,7 +39,6 @@ for i in range(start/2, end/2):
     soup = BeautifulSoup(content, "html.parser")
     output += str(soup.find(id="noFear-comparison").table) + "\n"
 
-file = open(filename, "w")
-file.write(output)
-file.close()
-webbrowser.open('file:///Users/jasonkao/cs_projects/scrapespeare/nofear.html')
+if __name__ == '__main__':
+    scrape_book('lear')
+
