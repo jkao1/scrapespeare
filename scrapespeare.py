@@ -2,12 +2,10 @@ from bs4 import BeautifulSoup
 import urllib2, webbrowser
 import sys
 
-book_to_end = {
-    'henryv': 4,
-    'muchado': 238,
-    'twelfthnight': 242,
-    'lear': 310
-}
+url = "http://nfs.sparknotes.com/richardiii/"
+filename = "nofear.html"
+start = int(sys.argv[1])
+end = int(sys.argv[2])
 
 def scrape_book(book_slug):
     url = "http://nfs.sparknotes.com/%s/" % book_slug
@@ -34,10 +32,12 @@ td.noFear-left { width:50%; }
         soup = BeautifulSoup(content, "html.parser")
         output += str(soup.find(id="noFear-comparison").table) + "\n"
 
-    file = open(book_slug + '.html', "w")
-    file.write(output)
-    file.close()
-    webbrowser.open('file:///Users/jasonkao/cs_projects/scrapespeare/%s.html' % book_slug)
+for i in range(start/2, end/2):
+    sceneUrl = url + "page_" + str(i*2) + ".html"
+    print("analyzing the contents of %s" % (sceneUrl))
+    content = urllib2.urlopen(sceneUrl).read()
+    soup = BeautifulSoup(content, "html.parser")
+    output += str(soup.find(id="noFear-comparison").table) + "\n"
 
 if __name__ == '__main__':
     scrape_book('lear')
