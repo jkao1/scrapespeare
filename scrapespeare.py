@@ -2,10 +2,9 @@ from bs4 import BeautifulSoup
 import urllib2, webbrowser
 import sys
 
-url = "http://nfs.sparknotes.com/lear/"
+url = "http://nfs.sparknotes.com/richardiii/"
 start = int(sys.argv[1])
 end = int(sys.argv[2])
-filename = sys.argv[3]
 
 output = """
 <head>
@@ -23,14 +22,14 @@ td.noFear-left { width:50%; }
 </style>
 """
 
-for i in range(start/2, (end+2)/2):
+for i in range(start/2, end/2):
     sceneUrl = url + "page_" + str(i*2) + ".html"
     print("analyzing the contents of %s" % (sceneUrl))
     content = urllib2.urlopen(sceneUrl).read()
     soup = BeautifulSoup(content, "html.parser")
     output += str(soup.find(id="noFear-comparison").table) + "\n"
 
-file = open(filename, "w")
+file = open('nofear.html', "w")
 file.write(output)
 file.close()
-webbrowser.open('file:///Users/jasonkao/cs_projects/scrapespeare/' + filename)
+webbrowser.open('file:///Users/jasonkao/cs_projects/scrapespeare/' + 'nofear.html')
